@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.example.sistemaprevisaotempo";
+option java_outer_classname = "ClimaProto";
+
+service ClimaService {
+
+  rpc cadastrarCidade (CidadeRequest) returns (MensagemResponse);
+
+  rpc listarCidades (Empty) returns (ListaCidadesResponse);
+
+  rpc obterTemperaturaAtual (CidadeRequest) returns (TemperaturaResponse);
+
+  rpc previsaoCincoDias (CidadeRequest) returns (PrevisaoResponse);
+
+  rpc estatisticasClimaticas (CidadeRequest) returns (EstatisticaResponse);
+}
+
+message Empty {}
+
+message CidadeRequest {
+  string nome = 1;
+}
+
+message MensagemResponse {
+  string mensagem = 1;
+}
+
+message ListaCidadesResponse {
+  repeated string cidades = 1;
+}
+
+message TemperaturaResponse {
+  string cidade = 1;
+  double temperatura = 2;
+}
+
+message PrevisaoDia {
+  string dia = 1;
+  double temperatura = 2;
+}
+
+message PrevisaoResponse {
+  string cidade = 1;
+  repeated PrevisaoDia previsoes = 2;
+}
+
+message EstatisticaResponse {
+  string cidade = 1;
+  double media = 2;
+  double minima = 3;
+  double maxima = 4;
+}
